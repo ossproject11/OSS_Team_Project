@@ -1,0 +1,84 @@
+.signup-container {
+  margin-top: 100px;
+  border-radius: 10px;
+  border: 1px solid #d3d3d3;
+  box-shadow: 0 2px 50x rgba(0, 0, 0, 0.2);
+  width: 450px;
+  .header {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 20px 40px;
+    h1 {
+      margin: 0;
+    }
+  }
+  form {
+    padding: 30px 40px;
+    .form-control {
+      margin-bottom: 10px;
+      padding-bottom: 20px;
+      label {
+        display: inline-block;
+        margin-bottom: 5px;
+      }
+      input {
+        border: 1px solid #d3d3d3;
+        border-radius: 5px;
+        display: block;
+        font-family: inherit;
+        font-size: 14px;
+        padding: 10px;
+        width: 100%;
+        transition: 0.2s;
+      }
+      small {
+        display: block;
+        color: #838383;
+        margin: 20px 0 0;
+      }
+
+      select {
+        margin-left: 10px;
+      }
+
+      .preference-container {
+        display: flex;
+        align-items: center;
+        span {
+          display: inline-block;
+          padding: 5px 5px;
+          border-radius: 5px;
+          background-color: #f3f3f3;
+          margin-right: 5px;
+          &:last-child {
+            margin-right: 0;
+          }
+        }
+      }
+    }
+    .btn {
+      border: none;
+      border-radius: 5px;
+      transition: 0.2s;
+      cursor: pointer;
+
+      &.add {
+        margin-left: 15px;
+        &:hover {
+          background-color: #b8b4b4;
+        }
+      }
+      &.submit {
+        background-color: #4450bc;
+        color: #fff;
+        display: block;
+        font-size: 1rem;
+        width: 100%;
+        padding: 15px;
+        &:hover {
+          background-color: #2f3fd1;
+        }
+      }
+    }
+  }
+}
