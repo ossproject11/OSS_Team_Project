@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # KW_OSS_Project
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
@@ -32,3 +33,6 @@ Python을 통해 뮤지컬과 공연에 관련한 open API에서 데이터를 �
 </b> </sub> </a> <br />
   </tr>
 </table>
+=======
+# OSS_Team_Project
+>>>>>>> 36ef376726f1cac0533174b1f29b0e5ddc7d7250
