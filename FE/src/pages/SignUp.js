@@ -32,6 +32,8 @@ function SignUp() {
       window.alert("비밀번호 확인을 입력해주세요.");
     } else if (userPasswordValue !== userPasswordCheckValue) {
       window.alert("비밀번호가 일치하지 않습니다.");
+    } else {
+      window.alert("이상 없음");
     }
   };
 
