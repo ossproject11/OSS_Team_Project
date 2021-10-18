@@ -2,49 +2,48 @@ import requests
 from bs4 import BeautifulSoup
 import pymysql
 
+# connect OSS - Database
 conn = pymysql.connect(host="oss-project.cdwna8p0padu.us-east-2.rds.amazonaws.com", user="admin", password="ossproject", db="Performance", charset="utf8")
 curs = conn.cursor(pymysql.cursors.DictCursor)
-#공연목록 api
+
+# Open API INFO
 prf_list = requests.get("http://www.kopis.or.kr/openApi/restful/pblprfr?service=9a8ded23eba14870b33c1ff1ad746a83&stdate=20210101&eddate=20211231&cpage=1&rows=225".encode('utf-8'))
 prf_soup = BeautifulSoup(prf_list.content, "html.parser")
-performance_id=prf_soup.find_all()
+performance_id = prf_soup.find_all("mt20id")
 
-# 이중list 공연목록 api
-performance_list = [[] for _ in range(len(performance_id)//10)]
-for i in range(2,len(performance_id),10):
-    for j in range(i, i+9):
-        performance_list[i//10].append(performance_id[j].text)
-"""
-#세부정보 저장을 위한 공연 code
-prf_code=prf_soup.find_all("mt20id")
-performance_code = []
-for i in range(0, len(prf_code)):
-    performance_code.append(prf_code[i].text)
-
-#세부정보 공연목록에 append
-for i in range(len(performance_id)//10):
-    a_list = requests.get("http://www.kopis.or.kr/openApi/restful/pblprfr/"+str(performance_code[i])+"?service=9a8ded23eba14870b33c1ff1ad746a83")
+# Open PrfDetail
+for i in range(len(performance_id)):
+    a_list = requests.get("http://www.kopis.or.kr/openApi/restful/pblprfr/" + performance_id[i].text + "?service=9a8ded23eba14870b33c1ff1ad746a83")
     a_soup = BeautifulSoup(a_list.content, "html.parser")
-    a_id = a_soup.find_all("prfcast")           #아이디
-    b_id = a_soup.find_all("prfcrew")           #이름
-    c_id = a_soup.find_all("prfruntime")        #공연시작시간
-    d_id = a_soup.find_all("prfage")            #공연관람연령
-    e_id = a_soup.find_all("entrpsnm")          #제작사
-    f_id = a_soup.find_all("pcseguidance")      #티켓가격
-    g_id = a_soup.find_all("sty")               #줄거리
-    h_id = a_soup.find_all("dtguidance")        #공연시간
-    for j in range(len(a_id)):
-        #performance_list[i].append(a_id[j].text)
-        #performance_list[i].append(b_id[j].text)
-        #performance_list[i].append(c_id[j].text)
-        #performance_list[i].append(d_id[j].text)
-        #performance_list[i].append(e_id[j].text)
-        #performance_list[i].append(f_id[j].text)
-        #performance_list[i].append(g_id[j].text)
-        #performance_list[i].append(h_id[j].text)
-"""
 
-#세부정보가 포함된 공연 목록 print
-for i in range(len(performance_id)//10):
-    print(performance_list[i])
-    #sql = "insert into Details values (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    data = []
+    data.append(performance_id[i].text)
+
+    # performance_id[i]                         # 공연 ID
+    a_id = a_soup.find_all("mt10id")            # 공연 시설 ID
+    b_id = a_soup.find_all("prfnm")             # 공연 명
+    c_id = a_soup.find_all("prfpdfrom")         # 공연 시작일
+    d_id = a_soup.find_all("prfpdto")           # 공연 종료일
+    e_id = a_soup.find_all("fcltynm")           # 공연 시설명
+    f_id = a_soup.find_all("prfcast")           # 공연 출연진
+    g_id = a_soup.find_all("prfcrew")           # 공연 제작진
+    h_id = a_soup.find_all("prfruntime")        # 공연 런타임
+    i_id = a_soup.find_all("prfage")            # 공연 관람연령
+    j_id = a_soup.find_all("entrpsnm")          # 공연 제작사
+    k_id = a_soup.find_all("pcseguidance")      # 공연 티켓가격
+    l_id = a_soup.find_all("poster")            # 공연 포스터
+    m_id = a_soup.find_all("sty")               # 공연 줄거리
+    n_id = a_soup.find_all("genrenm")           # 공연 장르
+    o_id = a_soup.find_all("prfstate")          # 공연 상태
+    p_id = a_soup.find_all("openrun")           # 공연 오픈런
+    #q_id = a_soup.find_all("styurls")           # 공연 소개이미지목록
+    #if len(q_id) == 0:
+    #    q_id = ["<styurls>x</styurls>"]
+    r_id = a_soup.find_all("dtguidance")        # 공연 시간
+
+    sql = "insert into Details values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    curs.execute(sql, (performance_id[i].text, a_id[0].text, b_id[0].text, c_id[0].text, d_id[0].text, e_id[0].text, f_id[0].text, g_id[0].text, h_id[0].text,
+                       i_id[0].text, j_id[0].text, k_id[0].text, l_id[0].text, m_id[0].text, n_id[0].text, o_id[0].text, p_id[0].text, r_id[0].text))
+    conn.commit()
+curs.close()
+conn.commit()
