@@ -46,6 +46,15 @@ class DataUserManager {
         return true;
     }
 
+    static async getUserInfo(user_id) {
+        const userInfo = await this.findUserInDB(user_id);
+        if (userInfo == null) {
+            console.log(`userId not exists!`);
+            return undefined;
+        }
+        return userInfo;
+    }
+
     static async login(user_id, user_pwd) {
         const userInfo = await this.findUserInDB(user_id);
         console.log(JSON.stringify(userInfo));
