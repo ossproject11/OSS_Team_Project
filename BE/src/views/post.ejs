@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+ <html>
+ <head>
+     <meta charset="utf-8">
+     <title>JOIN</title>
+     <!-- <link rel="shortcut icon" href="../../server/public/favicon.ico" type="image/x-icon"> -->
+     <link rel="shortcut icon" href="#">
+ </head>
+     <body>
+     <h1>POST! </h1>
+     <form action="/api/post" enctype="multipart/form-data" method="post">
+         type : <input type="text" name="type"><br>
+         title : <input type="text" name="title"><br>
+         content : <input type="text" name="content"><br>
+         creator_name : <input type="text" name="creator_name"><br>
+         creator_id : <input type="text" name="creator_id"><br>
+         <input type="file" name="img">
+         <input type="submit">
+     </form>
+
+     </body>
+ </html>
