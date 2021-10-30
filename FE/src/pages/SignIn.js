@@ -23,14 +23,15 @@ function SignIn() {
   };
 
   return (
-    <div className="signin-container">
+    <div className="signin_container">
       <div className="header">
-        <h1>로그인</h1>
+        <h1 className="title">로그인</h1>
       </div>
-      <form onSubmit={onSubmit}>
-        <div className="form-control">
-          <label>ID</label>
+      <form className="form_signin" onSubmit={onSubmit}>
+        <div className="form_control">
+          <label className="form_label">ID</label>
           <input
+            className="form_input"
             type="text"
             placeholder="아이디를 입력해주세요."
             autoComplete="off"
@@ -39,9 +40,10 @@ function SignIn() {
             }}
           />
         </div>
-        <div className="form-control">
-          <label>비밀번호</label>
+        <div className="form_control">
+          <label className="form_label">비밀번호</label>
           <input
+            className="form_input"
             type="password"
             placeholder="비밀번호 입력해주세요."
             autoComplete="off"
@@ -50,7 +52,7 @@ function SignIn() {
             }}
           />
         </div>
-        <button type="submit" className="btn submit">
+        <button className="btn_signin" type="submit">
           로그인
         </button>
       </form>
