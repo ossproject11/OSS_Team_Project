@@ -4,8 +4,11 @@ import thunk from "redux-thunk";
 import { persistReducer } from "redux-persist";
 import storageSession from "redux-persist/lib/storage/session";
 import { combineReducers } from "redux";
+import user from "./modules/user";
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+  user,
+});
 
 const persistConfig = {
   key: "root",

@@ -20,44 +20,62 @@ const setUser = createAction(SET_USER);
 const setLogin = createAction(SET_LOGIN);
 
 const signin = (id, pwd, history) => {
-  return function (dispatch, getState) {
-    axios
-      .post("http://localhost:8080/app/signin", {
+  return async function (dispatch, getState) {
+    await axios
+      .post(`/api/auth`, {
         user_id: id,
         user_pwd: pwd,
       })
       .then((res) => {
-        dispatch(setLogin({ jwt: res.data.result.jwt }));
+        console.log(res.data);
+        dispatch(setLogin({ jwt: res.data.token }));
       })
       .catch((err) => {
         window.alert(err.response.data.message);
       })
       .then(() => {
-        if (getState().user.jwt === null) return;
-        axios.get("http://localhost:8080/app/sign-in");
+        axios
+          .post(`/api/getuserinfo`, {
+            user_id: id,
+          })
+          .then((res) => {
+            if (res.data.code === 200) {
+              console.log("로그인 성공");
+              console.log(res);
+              dispatch(setUser(res.data.userInfo));
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          })
+          .then(() => {
+            history.replace("/");
+          });
       });
   };
 };
 
 const signup = (id, name, pwd, preferenceList, history) => {
   console.log(id, name, preferenceList);
-  return;
-  // return function (dispatch, getState) {
-  //   axios
-  //     .post("http://localhost:8080/api/register", {
-  //       user_id: id,
-  //       user_pwd: pwd,
-  //     })
-  //     .then((res) => {
-  //       if (res.code === 200) {
-  //         window.alert("회원가입 성공");
-  //         history.push("/");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       window.alert(error.response.data.message);
-  //     });
-  // };
+  return function (dispatch, getState) {
+    axios
+      .post(`/api/register`, {
+        user_id: id,
+        user_pwd: pwd,
+        user_name: name,
+        user_prefer: preferenceList,
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data.code === 200) {
+          window.alert("회원가입 성공");
+          history.push("/");
+        }
+      })
+      .catch((error) => {
+        window.alert(error.response.data.message);
+      });
+  };
 };
 
 export default createReducer(initialState, {
@@ -66,12 +84,26 @@ export default createReducer(initialState, {
     state.jwt = action.payload.jwt;
   },
   [SET_USER]: (state, action) => {
-    // state.user.userId = action.payload.;
+    const userData = action.payload;
+    state.user.userId = userData.USER_ID;
+    state.user.userName = userData.USER_NAME;
+    state.user.preferenceList = userData.USER_PREFER;
+  },
+  [LOG_OUT]: (state, action) => {
+    state.is_login = false;
+    state.jwt = null;
+    state.user = {
+      userId: null,
+      userName: null,
+      userPreferenceList: null,
+    };
   },
 });
 
 const actionCreators = {
+  signin,
   signup,
+  logout,
 };
 
 export { actionCreators };

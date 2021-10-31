@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
+import axios from "axios";
 
 import "../style/SignUp.scss";
 
@@ -11,6 +12,7 @@ function SignUp(props) {
   const [userPassword, setUserPassword] = useState("");
   const [userPasswordCheck, setUserPasswordCheck] = useState("");
   const [preference, setPreference] = useState([]);
+  const [isDuplicate, setIsDuplicate] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -23,7 +25,9 @@ function SignUp(props) {
     const userPasswordValue = userPassword.trim();
     const userPasswordCheckValue = userPasswordCheck.trim();
 
-    if (userIDValue === "") {
+    if (!isDuplicate) {
+      window.alert("아이디 중복 확인을 먼저 해주세요.");
+    } else if (userIDValue === "") {
       window.alert("아이디를 입력해주세요.");
     } else if (userIDValue.length < 8) {
       window.alert("8자리 이상의 아이디를 입력해주세요.");
@@ -62,6 +66,43 @@ function SignUp(props) {
       preference.filter((item) => item !== e.target.previousSibling.data)
     );
   };
+
+  const onBtnCheckDup = async (e) => {
+    e.preventDefault();
+
+    if (userID === "" && userID.trim() === "") {
+      window.alert("아이디를 입력해주세요.");
+    } else if (userID.length < 8) {
+      window.alert("8자리 이상의 아이디를 입력해주세요.");
+    } else {
+      if (await checkDuplicate(userID)) {
+        window.alert("사용 가능한 아이디입니다");
+        setIsDuplicate(true);
+      } else {
+        window.alert("이미 동일한 아이디가 존재합니다.");
+      }
+    }
+  };
+
+  const checkDuplicate = async (id) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(`/api/checkduplicate`, {
+          user_id: id,
+        })
+        .then((res) => {
+          if (res.data.code === 200) {
+            resolve(true);
+          } else if (res.data.code === 500) {
+            resolve(false);
+          }
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  };
+
   return (
     <div className="signup_container">
       <div className="header">
@@ -77,8 +118,12 @@ function SignUp(props) {
             autoComplete="off"
             onChange={(e) => {
               setUserID(e.target.value);
+              setIsDuplicate(false);
             }}
           />
+          <button className="btn check_dup" onClick={onBtnCheckDup}>
+            ID 중복 확인
+          </button>
         </div>
         <div className="form_control">
           <label className="form_label">이름</label>
