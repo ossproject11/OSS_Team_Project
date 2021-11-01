@@ -20,7 +20,7 @@ for i in range(0, len(fcl_code)):
     facility_code.append(fcl_code[i].text)      # 공연시설명, 공연시설ID, 공연장 수, 시설특성, 지역(시도), 지역(구군), 개관연도
 
 # 세부정보 시설목록에 append
-for i in range(len(facility_id)//8):
+for i in range(len(facility_code)):
     a_list = requests.get("http://www.kopis.or.kr/openApi/restful/prfplc/"+str(facility_code[i])+"?service=3dbea193a9e0445a9c80d813e9233d93")
     a_soup = BeautifulSoup(a_list.content, "html.parser")
     a_id = a_soup.find_all("seatscale")         #객석 수
@@ -29,13 +29,12 @@ for i in range(len(facility_id)//8):
     d_id = a_soup.find_all("adres")             #주소
     e_id = a_soup.find_all("la")                #위도
     f_id = a_soup.find_all("lo")                #경도
-    for j in range(len(a_id)):
-        facility_list[i].append(a_id[j].text)
-        facility_list[i].append(b_id[j].string)
-        facility_list[i].append(c_id[j].text)
-        facility_list[i].append(d_id[j].text)
-        facility_list[i].append(e_id[j].text)
-        facility_list[i].append(f_id[j].text)
+    facility_list[i].append(a_id[0].text)
+    facility_list[i].append(b_id[0].string)
+    facility_list[i].append(c_id[0].text)
+    facility_list[i].append(d_id[0].text)
+    facility_list[i].append(e_id[0].text)
+    facility_list[i].append(f_id[0].text)
 
 # 정리된 리스트 출력
 for i in facility_list:
