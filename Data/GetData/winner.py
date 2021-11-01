@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 # 수상작 목록 api 추출
-win_list = requests.get("http://www.kopis.or.kr/openApi/restful/prfawad?service=3dbea193a9e0445a9c80d813e9233d93&stdate=20210101&eddate=20211231&cpage=1&rows=763".encode('utf-8'))
+win_list = requests.get("http://www.kopis.or.kr/openApi/restful/prfawad?service=9a8ded23eba14870b33c1ff1ad746a83&stdate=20210101&eddate=20211231&cpage=1&rows=763".encode('utf-8'))
 win_soup = BeautifulSoup(win_list.content, "html.parser")
 win_id = win_soup.find_all("mt20id")
 win_nm = win_soup.find_all("prfnm")
@@ -22,4 +22,6 @@ for i in winner_list:
 '''
 API 리스트 index 별 내용(필드명)
 공연ID(mt20id), 공연명(prfnm), 수상실적(awards)
+수상실적에서 <br> 엔터키 제거
+수상실적이 여러개인 경우 그만큼 <br>생성
 '''
