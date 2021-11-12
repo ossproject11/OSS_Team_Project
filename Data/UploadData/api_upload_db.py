@@ -3,11 +3,11 @@ from bs4 import BeautifulSoup
 import pymysql
 
 # connect OSS - Database
-conn = pymysql.connect(host="oss-project.cdwna8p0padu.us-east-2.rds.amazonaws.com", user="admin", password="ossproject", db="Performance", charset="utf8")
+conn = pymysql.connect(host="", user="", password="!", db="", charset="utf8")
 curs = conn.cursor(pymysql.cursors.DictCursor)
 
 # Open API INFO
-prf_list = requests.get("http://www.kopis.or.kr/openApi/restful/pblprfr?service=9a8ded23eba14870b33c1ff1ad746a83&stdate=20210101&eddate=20211231&cpage=1&rows=225".encode('utf-8'))
+prf_list = requests.get("http://www.kopis.or.kr/openApi/restful/pblprfr?service=&stdate=20210101&eddate=20211231&cpage=1&rows=225".encode('utf-8'))
 prf_soup = BeautifulSoup(prf_list.content, "html.parser")
 performance_id = prf_soup.find_all("mt20id")
 
