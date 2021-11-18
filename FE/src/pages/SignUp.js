@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import axios from "axios";
 
 import "../style/SignUp.scss";
 
-function SignUp(props) {
+function SignUp({ props, history }) {
   const dispatch = useDispatch();
   const [userID, setUserID] = useState("");
   const [userName, setUserName] = useState("");
@@ -13,6 +13,12 @@ function SignUp(props) {
   const [userPasswordCheck, setUserPasswordCheck] = useState("");
   const [preference, setPreference] = useState([]);
   const [isDuplicate, setIsDuplicate] = useState(false);
+  const is_login = useSelector((state) => state.user.is_login);
+
+  if (is_login) {
+    window.alert("올바르지 않은 접근입니다.");
+    history.goBack();
+  }
 
   const onSubmit = (e) => {
     e.preventDefault();

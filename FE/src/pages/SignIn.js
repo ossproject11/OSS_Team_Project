@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 
 import "../style/SignIn.scss";
 
-function SignIn(props) {
+function SignIn({ props, history }) {
   const dispatch = useDispatch();
   const [userID, setUserID] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const is_login = useSelector((state) => state.user.is_login);
 
+  if (is_login) {
+    window.alert("올바르지 않은 접근입니다.");
+    history.goBack();
+  }
   const onSubmit = (e) => {
     e.preventDefault();
     checkInputs();
