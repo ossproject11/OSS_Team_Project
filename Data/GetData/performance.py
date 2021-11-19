@@ -17,8 +17,6 @@ performance_code = []
 for i in range(0, len(prf_code)):
     performance_code.append(prf_code[i].text)
 
-poster = []
-
 #세부정보 공연목록에 append
 for i in range(len(performance_id)//10):
     a_list = requests.get("http://www.kopis.or.kr/openApi/restful/pblprfr/"+str(performance_code[i])+"?service=3dbea193a9e0445a9c80d813e9233d93")
