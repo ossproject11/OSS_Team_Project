@@ -4,28 +4,24 @@ module.exports = function (sequelize, DataTypes) {
   const users = sequelize.define(
     "users",
     {
-      USER_ID: {
+      id: {
         type: DataTypes.STRING(50),
         allowNull: false,
         primaryKey: true,
       },
-      USER_PWD: {
+      password: {
         type: DataTypes.STRING(500),
         allowNull: false,
       },
-      USER_NAME: {
+      name: {
         type: DataTypes.STRING(30),
         allowNull: false,
       },
-      USER_PREFER: {
+      prefer: {
         type: DataTypes.STRING(100),
         allowNull: true,
       },
-      USER_LASTLOGIN: {
-        type: DataTypes.DATE,
-        allowNull: true,
-      },
-      USER_POSITION: {
+      position: {
         type: DataTypes.INTEGER,
         allowNull: true,
         defaultValue: 1,
