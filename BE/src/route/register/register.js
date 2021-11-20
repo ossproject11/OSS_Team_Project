@@ -11,7 +11,9 @@ router.post("/", async (req, res) => {
     const user_id = req.body.user_id;
     const user_pwd = req.body.user_pwd;
     const user_name = req.body.user_name;
-    const resultCode = await DataUserManager.register(user_id, user_pwd, user_name);
+    const user_prefer = req.body.user_prefer;
+    
+    const resultCode = await DataUserManager.register(user_id, user_pwd, user_name,user_prefer);
     if(resultCode == false){
         return res.json({ code: 500 });
     };
