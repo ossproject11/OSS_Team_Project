@@ -11,7 +11,7 @@ router.post("/", async (req, res) => {
     const user_pwd = req.body.user_pwd;
 
     const loginToken = await DataUserManager.login(user_id, user_pwd);
-    if (loginToken === undefined) {
+    if (loginToken === false) {
         return res.json({ code: 500 });
     }
     return res.json({ code: 200, token: loginToken });
