@@ -56,7 +56,7 @@ const signin = (id, pwd, history) => {
 };
 
 const signup = (id, name, pwd, preferenceList, history) => {
-  console.log(id, name, preferenceList);
+  console.log(id, name, preferenceList, history);
   return function (dispatch, getState) {
     axios
       .post(`/api/register`, {

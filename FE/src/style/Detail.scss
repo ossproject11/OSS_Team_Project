@@ -1,5 +1,5 @@
 .detail_container {
-  margin-top: 100px;
+  margin: 100px 0 150px;
 
   .detail_inner {
     display: flex;
@@ -60,5 +60,68 @@
     &:hover {
       background-color: #2f3fd1;
     }
+  }
+}
+
+.input_container {
+  border: 1px solid #c1c1c1;
+  border-radius: 10px;
+  padding: 10px 20px 20px;
+  .comment_input {
+    width: 600px;
+    resize: none;
+    height: 20px;
+    line-height: 20px;
+    padding: 10px;
+    border: 1px solid #c1c1c1;
+  }
+
+  .btn_submit {
+    border: 0;
+    background-color: #4450bc;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 10px;
+    border-radius: 10px;
+    padding: 13px;
+  }
+}
+
+.comment_list {
+  margin-top: 20px;
+  border-top: 1px solid #c1c1c1;
+
+  .comment_item {
+    border-bottom: 1px solid #c1c1c1;
+    margin-top: 20px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    .comment_username {
+      float: left;
+      font-weight: bold;
+      min-width: 100px;
+    }
+
+    .comment_content {
+      margin-left: 200px;
+    }
+  }
+
+  .btn_more {
+    border: 0;
+    width: 100%;
+    background-color: #c1c1c1;
+    cursor: pointer;
+    height: 50px;
+    line-height: 50px;
   }
 }

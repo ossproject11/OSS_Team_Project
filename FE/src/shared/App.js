@@ -12,17 +12,18 @@ import Detail from "../pages/Detail";
 
 function App() {
   return (
-    <div className="App">
-      <h1 className="blind">공연예술 추천 홈페이지</h1>
-      <BrowserRouter>
-        <Navbar></Navbar>
-        <Route path="/" exact component={Home} />
-        <Route path="/signup" exact component={SignUp} />
-        <Route path="/signin" exact component={SignIn} />
-        <Route path="/detail/:id" exact component={Detail} />
-      </BrowserRouter>
-      <Footer></Footer>
-    </div>
+    <React.Fragment>
+      <div className="App">
+        <BrowserRouter>
+          <Navbar></Navbar>
+          <Route path="/" exact component={Home} />
+          <Route path="/signup" exact component={SignUp} />
+          <Route path="/signin" exact component={SignIn} />
+          <Route path="/detail/:id" exact component={Detail} />
+        </BrowserRouter>
+        <Footer></Footer>
+      </div>
+    </React.Fragment>
   );
 }
 
