@@ -4,7 +4,7 @@ import { actionCreators as userActions } from "../redux/modules/user";
 
 import "../style/SignIn.scss";
 
-function SignIn({ props, history }) {
+function SignIn({ history }) {
   const dispatch = useDispatch();
   const [userID, setUserID] = useState("");
   const [userPassword, setUserPassword] = useState("");
@@ -28,9 +28,7 @@ function SignIn({ props, history }) {
     } else if (userPasswordValue === "") {
       window.alert("비밀번호를 입력해주세요.");
     } else {
-      dispatch(
-        userActions.signin(userIDValue, userPasswordValue, props.history)
-      );
+      dispatch(userActions.signin(userIDValue, userPasswordValue, history));
     }
   };
 

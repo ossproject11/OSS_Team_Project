@@ -1,13 +1,13 @@
+$color--black: #000;
+$color--white: #fff;
+
 .App {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
-  .blind {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    clip: rect(0 0 0 0);
-    overflow: hidden;
-  }
+  min-height: 100vh;
+  position: relative;
+  color: $color--black;
+  background-color: $color--white;
+  overflow: hidden;
 }
