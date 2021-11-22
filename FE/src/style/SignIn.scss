@@ -1,4 +1,4 @@
-.signin-container {
+.signin_container {
   margin-top: 100px;
   border-radius: 10px;
   border: 1px solid #d3d3d3;
@@ -8,20 +8,22 @@
     background-color: #f7f7f7;
     border-bottom: 1px solid #f0f0f0;
     padding: 20px 40px;
-    h1 {
+    border-radius: 10px;
+    .title {
       margin: 0;
     }
   }
-  form {
+  .form_signin {
     padding: 30px 40px;
-    .form-control {
+    .form_control {
       margin-bottom: 10px;
       padding-bottom: 20px;
-      label {
+      .form_label {
         display: inline-block;
         margin-bottom: 10px;
       }
-      input {
+      .form_input {
+        box-sizing: border-box;
         border: 1px solid #d3d3d3;
         border-radius: 5px;
         display: block;
@@ -33,7 +35,7 @@
       }
     }
 
-    button {
+    .btn_signin {
       border: none;
       border-radius: 5px;
       transition: 0.2s;

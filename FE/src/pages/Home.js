@@ -1,10 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import TheaterList from "../components/TheaterList";
+
+import "../style/Home.scss";
 
 function Home() {
   return (
     <div className="container">
-      <h1>hello home</h1>
+      <TheaterList></TheaterList>
     </div>
   );
 }
