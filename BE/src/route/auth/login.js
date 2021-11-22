@@ -12,7 +12,7 @@ router.post("/", async (req, res) => {
 
     const loginToken = await DataUserManager.login(user_id, user_pwd);
     if (loginToken === false) {
-        return res.json({ code: 500 });
+        return res.json({ code: 500, message: "failed to login"});
     }
     return res.json({ code: 200, token: loginToken });
 });

@@ -15,7 +15,7 @@ class DataPerformManager{
             });
         } catch (err) {
             console.log(err);
-            return undefined;
+            return false;
         }
     }
 
@@ -26,7 +26,7 @@ class DataPerformManager{
             const userInfo = await this.findPreferInUser(id);
             console.log(userInfo);
             console.log(`userInfo: ${JSON.stringify(userInfo)}`);
-            if (userInfo == null) {
+            if (userInfo == false || userInfo == null) {
                 console.log(`There is no user with typed user id!`);
                 return false;
             }
@@ -81,15 +81,14 @@ class DataPerformManager{
             //2번 end
         }catch(err){
             console.log(err);
-            return undefined;
+            return false;
         }
     }
 
     static async findAllPerform(){
         try{
-            const performName = "연극";
             //1번 start
-            let query = `SELECT * from Details WHERE genreNm='${performName}'`;
+            let query = `SELECT * from Details`;
 
             //1번 end 
             return await models.sequelize
@@ -101,10 +100,27 @@ class DataPerformManager{
                     )
         }catch(err){
             console.log(err);
-            return undefined;
+            return false;
         }
     }
+    static async findOnePerform(id){
+        try{
+            //1번 start
+            let query = `SELECT * from Details WHERE mt20id='${id}'`;
 
+            //1번 end 
+            return await models.sequelize
+                .query(
+                    query,
+                    {
+                        type: models.Sequelize.QueryTypes.SELECT,
+                    }
+                    )
+        }catch(err){
+            console.log(err);
+            return false;
+        }
+    }
 }
 
 module.exports = DataPerformManager;
