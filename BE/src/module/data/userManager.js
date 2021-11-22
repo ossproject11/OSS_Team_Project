@@ -14,13 +14,13 @@ class DataUserManager {
             });
         } catch (err) {
             log.error(err);
-            return undefined;
+            return false;
         }
     }
     static async getUserInfo(user_id) {
         const userInfo = await this.findUserInDB(user_id);
         console.log(`userInfo: ${JSON.stringify(userInfo)}`);
-        if (userInfo == null) {
+        if (userInfo == null || userInfo == false) {
             console.log(`There is no user with typed user id!`);
             return false;
         }
@@ -38,18 +38,20 @@ class DataUserManager {
             .create({ id: user_id, password: encrypt.encrypt(user_pwd), name: user_name, prefer: user_prefer, createdAt: moment().format("YYYY-MM-DD HH:mm:ss"), USER_POSITION: 1 })
             .then((result) => {
                 console.log(`새 유저 생성 성공 : ${result.id}`);
+                return true;
             })
             .catch((err) => {
                 console.log(`유저 생성 실패: ${err}`);
+                return false;
             });
         return true;
     }
 
     static async checkDuplicate(user_id) {
         const userInfo = await this.findUserInDB(user_id);
-        if (userInfo !== null) {
+        if (userInfo !== null || userInfo !== false) {
             console.log(`userId is already exists! ${userInfo.USER_ID}`);
-            return undefined;
+            return false;
         }
         return true;
     }
@@ -86,7 +88,7 @@ class DataUserManager {
             console.log(token);
             return token;
         } else {
-            return undefined;
+            return false;
         }
     }
 }

@@ -7,10 +7,16 @@ router.post("/", async (req, res) => {
     const user_id = req.body?.user_id;
 
     const checkdata = await DataUserManager.checkDuplicate(user_id);
-    if(checkdata == undefined){
-        return res.json({ code: 500 });
+    if(checkdata == false){
+        return res.json({ 
+            code: 500, 
+            message:"UserId already exists!!" 
+        });
     }
-    return res.json({ code: 200 });
+    return res.json({ 
+        code: 200 ,
+        message: "You can use this id"
+    });
 })
 
 module.exports = router;

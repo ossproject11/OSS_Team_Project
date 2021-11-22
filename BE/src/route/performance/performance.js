@@ -13,11 +13,11 @@ router.post("/", async (req, res) => {
     return res.json({ 
         code: 200, 
         message: "successfully got performances.",
-        userInfo: result,
+        performInfo: result,
     });
 });
 
-router.get("/all", async (req, res) => {
+router.get("/", async (req, res) => {
     const result = await DataPerformManager.findAllPerform();
     console.log(result);
     if(result == undefined){
@@ -26,8 +26,24 @@ router.get("/all", async (req, res) => {
     return res.json({ 
         code: 200, 
         message: "successfully got performances.",
-        userInfo: result,
+        performInfo: result,
     });
 });
+router.post("/detail", async (req, res) => {
+    const performId = req.body?.perform_id;
 
+    const result = await DataPerformManager.findOnePerform(performId);
+    console.log(result);
+    if(result == false){
+        return res.json({ 
+            code: 500,
+            message: "No performances.",
+        });
+    };
+    return res.json({ 
+        code: 200, 
+        message: "Successfully got performance detail.",
+        performInfo: result,
+    });
+});
 module.exports = router;

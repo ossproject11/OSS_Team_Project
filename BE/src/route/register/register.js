@@ -15,7 +15,10 @@ router.post("/", async (req, res) => {
     
     const resultCode = await DataUserManager.register(user_id, user_pwd, user_name,user_prefer);
     if(resultCode == false){
-        return res.json({ code: 500 });
+        return res.json({ 
+            code: 500,
+            message: "failed to register."
+         });
     };
     return res.json({ code: 200, message: "successfully registered." });
 });
