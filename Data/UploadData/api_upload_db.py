@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import pymysql
 
 # connect OSS - Database
-conn = pymysql.connect(host="", user="", password="!", db="", charset="utf8")
+conn = pymysql.connect(host="", user="", password="", db="", charset="utf8")
 curs = conn.cursor(pymysql.cursors.DictCursor)
 
 # Open API INFO
@@ -33,17 +33,19 @@ for i in range(len(performance_id)):
     n_id = a_soup.find_all("genrenm")           # 공연 장르
     o_id = a_soup.find_all("prfstate")          # 공연 상태
     p_id = a_soup.find_all("openrun")           # 공연 오픈런
-    #q_id = a_soup.find_all("styurls")          # 공연 소개이미지목록
-    #if len(q_id) == 0:
-    #    q_id = ["<styurls>x</styurls>"]
+
+    # 공연 소개 이미지 목록 추가
+    q_id = a_soup.find("styurl")          # 공연 소개이미지목록
     r_id = a_soup.find_all("dtguidance")        # 공연 시간
 
-    sql = "insert into Details values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    sql = "insert into Details values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
     curs.execute(sql, (performance_id[i].text, a_id[0].text, b_id[0].text, c_id[0].text, d_id[0].text, e_id[0].text, f_id[0].text, g_id[0].text, h_id[0].text,
-                       i_id[0].text, j_id[0].text, k_id[0].text, l_id[0].text, m_id[0].text, n_id[0].text, o_id[0].text, p_id[0].text, r_id[0].text, "test"))
+                       i_id[0].text, j_id[0].text, k_id[0].text, l_id[0].text, m_id[0].text, n_id[0].text, o_id[0].text, p_id[0].text, str(q_id).strip("</styurl>"), r_id[0].text, "test"))
     conn.commit()
 
+
 # 공연시설상세 api 추출
+'''
 fcl_list = requests.get("http://www.kopis.or.kr/openApi/restful/prfplc?service=3dbea193a9e0445a9c80d813e9233d93&cpage=1&rows=1448".encode('utf-8'))
 fcl_soup = BeautifulSoup(fcl_list.content, "html.parser")
 facility_id = fcl_soup.find_all("mt10id")
@@ -67,6 +69,6 @@ for i in range(len(facility_id)):
     sql = "insert into Details values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
     curs.execute(sql, (facility_id[i].text, a_id[0].text, b_id[0].text, c_id[0].text, d_id[0].text, e_id[0].text, f_id[0].text, g_id[0].text, h_id[0].text, i_id[0].text, j_id[0].text))
     conn.commit()
-
+'''
 curs.close()
 conn.commit()
