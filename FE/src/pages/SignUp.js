@@ -93,7 +93,7 @@ function SignUp({ history }) {
   const checkDuplicate = async (id) => {
     return new Promise((resolve, reject) => {
       axios
-        .post("/api/checkduplicate", {
+        .post("http://localhost:8080/api/checkDuplicate", {
           user_id: id,
         })
         .then((res) => {

@@ -15,9 +15,9 @@ const setLoading = createAction(SET_LOADING);
 const getList = (payload) => {
   return function (dispatch, getState) {
     axios
-      .get("/api/perform/all")
+      .get("http://localhost:8080/api/perform/")
       .then((res) => {
-        dispatch(setList(res.data.userInfo));
+        dispatch(setList(res.data.performInfo));
         dispatch(setLoading(false));
       })
       .catch((error) => {

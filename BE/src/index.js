@@ -16,14 +16,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 models.sequelize
-    .sync()
-    .then(() => {
-        console.log("====DB 연결 성공======");
-    })
-    .catch((err) => {
-        console.log("연결 실패");
-        console.log(err);
-    });
+  .sync()
+  .then(() => {
+    console.log("====DB 연결 성공======");
+  })
+  .catch((err) => {
+    console.log("연결 실패");
+    console.log(err);
+  });
 
 global.appRoot = path.resolve(__dirname);
 // view engine setup
@@ -32,12 +32,13 @@ app.set("views", path.join(__dirname, "./views"));
 
 //cors
 const cors = require("cors");
-router.use(
-    cors({
-        origin: "*",
-        methods: ["GET", "PUT", "POST", "DELETE"],
-    })
-);
+// router.use(
+//   cors({
+//     origin: "*",
+//     methods: ["GET", "PUT", "POST", "DELETE"],
+//   })
+// );
+app.use(cors());
 
 app.set("trust proxy", 1);
 app.use(logger("dev"));
@@ -48,7 +49,7 @@ app.use("/api", route);
 app.use("/api/images", express.static("./static"));
 
 app.use((req, res, next) => {
-    next(createError(404));
+  next(createError(404));
 });
 
 app.listen(PORT);
