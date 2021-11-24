@@ -22,7 +22,7 @@ const setLogin = createAction(SET_LOGIN);
 const signin = (id, pwd, history) => {
   return async function (dispatch, getState) {
     await axios
-      .post(`/api/auth`, {
+      .post(`http://localhost:8080/api/auth`, {
         user_id: id,
         user_pwd: pwd,
       })
@@ -35,7 +35,7 @@ const signin = (id, pwd, history) => {
       })
       .then(() => {
         axios
-          .post(`/api/getuserinfo`, {
+          .post(`http://localhost:8080/api/getuserinfo`, {
             user_id: id,
           })
           .then((res) => {
@@ -58,7 +58,7 @@ const signin = (id, pwd, history) => {
 const signup = (id, name, pwd, preferenceList, history) => {
   return function (dispatch, getState) {
     axios
-      .post("/api/register", {
+      .post("http://localhost:8080/api/register", {
         user_id: id,
         user_pwd: pwd,
         user_name: name,
