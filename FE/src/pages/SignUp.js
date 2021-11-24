@@ -5,7 +5,7 @@ import axios from "axios";
 
 import "../style/SignUp.scss";
 
-function SignUp({ props, history }) {
+function SignUp({ history }) {
   const dispatch = useDispatch();
   const [userID, setUserID] = useState("");
   const [userName, setUserName] = useState("");
@@ -52,7 +52,7 @@ function SignUp({ props, history }) {
           userNameValue,
           userPasswordValue,
           preference,
-          props.history
+          history
         )
       );
     }
@@ -93,7 +93,7 @@ function SignUp({ props, history }) {
   const checkDuplicate = async (id) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(`/api/checkduplicate`, {
+        .post("http://localhost:8080/api/checkDuplicate", {
           user_id: id,
         })
         .then((res) => {

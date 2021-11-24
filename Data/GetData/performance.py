@@ -4,15 +4,15 @@ from bs4 import BeautifulSoup
 #공연목록 api
 prf_list = requests.get("http://www.kopis.or.kr/openApi/restful/pblprfr?service=3dbea193a9e0445a9c80d813e9233d93&stdate=20210101&eddate=20211231&cpage=1&rows=225".encode('utf-8'))
 prf_soup = BeautifulSoup(prf_list.content, "html.parser")
-performance_id=prf_soup.find_all()
+performance_id = prf_soup.find_all()
 
 # 이중list 공연목록 api
 performance_list = []
-for i in range(1,len(performance_id),10):
-    performance_list.append(str(performance_id[i].text.strip()).split('\n')) #공연 ID, 공연명, 공연시작일자, 공연종료일자, 공연시설명, 공연포스터경로, 공연 장르명, 공연상태, 오픈런 append
+for i in range(1, len(performance_id), 10):
+    performance_list.append(str(performance_id[i].text.strip()).split('\n'))
 
 #세부정보 저장을 위한 공연 code
-prf_code=prf_soup.find_all("mt20id") #공연 ID에 대한 세부정보 파악을 위해, ID만 들어있는 list 생성
+prf_code = prf_soup.find_all("mt20id") #공연 ID에 대한 세부정보 파악을 위해, ID만 들어있는 list 생성
 performance_code = []
 for i in range(0, len(prf_code)):
     performance_code.append(prf_code[i].text)
