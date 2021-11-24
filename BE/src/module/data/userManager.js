@@ -54,6 +54,7 @@ class DataUserManager {
     return true;
   }
 
+
   static async checkDuplicate(user_id) {
     const userInfo = await this.findUserInDB(user_id);
     if (userInfo !== null && userInfo !== false) {
