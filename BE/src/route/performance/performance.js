@@ -7,7 +7,10 @@ router.post("/", async (req, res) => {
     const userId = req.body.user_id;
 
     const result = await DataPerformManager.findPerformInDetail(userId);
-    if(result == undefined){
+    console.log("result: ");
+    console.log(result);
+
+    if(result == false){
         return res.json({ code: 500 });
     };
     return res.json({ 
