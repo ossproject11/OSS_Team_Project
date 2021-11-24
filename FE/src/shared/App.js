@@ -21,8 +21,8 @@ function App() {
           <Route path="/signin" exact component={SignIn} />
           <Route path="/detail/:id" exact component={Detail} />
         </BrowserRouter>
-        <Footer></Footer>
       </div>
+      <Footer></Footer>
     </React.Fragment>
   );
 }

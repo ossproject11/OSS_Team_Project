@@ -25,7 +25,7 @@ function Navbar() {
   return (
     <header className="navbar-container">
       <Link to="/" className="link logo">
-        OSS Project
+        OSS
       </Link>
       <div className="navbar-items">
         <div className="inner">

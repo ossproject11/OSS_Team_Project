@@ -33,10 +33,10 @@ app.set("views", path.join(__dirname, "./views"));
 //cors
 const cors = require("cors");
 
-router.use(
-    cors()
-);
-
+// router.use(
+//     cors()
+// );
+app.use(cors());
 
 app.set("trust proxy", 1);
 app.use(logger("dev"));
