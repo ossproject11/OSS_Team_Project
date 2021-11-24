@@ -49,7 +49,7 @@ class DataUserManager {
 
     static async checkDuplicate(user_id) {
         const userInfo = await this.findUserInDB(user_id);
-        if (userInfo !== null || userInfo !== false) {
+        if (userInfo !== null && userInfo !== false) {
             console.log(`userId is already exists! ${userInfo.USER_ID}`);
             return false;
         }
