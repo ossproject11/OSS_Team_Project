@@ -65,14 +65,25 @@ function Detail(props) {
   return (
     <div className="detail_container">
       <div className="detail_inner">
-        <div className="thumbnail_box">THUMBNAIL</div>
+        <div className="thumbnail_box">
+          <img src={item.poster} alt={item.prfnm} className="thumbnail" />
+        </div>
         <div className="info_box">
-          <h3 className="info_title">{item.name}</h3>
-          <p className="info_description">content 설명</p>
-          <address className="info_address">위치</address>
-          <Link to="/map" className="info_link">
+          <h3 className="info_title">{item.prfnm}</h3>
+          <p className="info_description">
+            {item.sty.trim() === "" ? "등록된 줄거리가 없습니다" : item.sty}
+          </p>
+          <address className="info_address">{item.fcltynm}</address>
+          <a
+            href={`https://map.kakao.com/link/search/${
+              item.fcltynm.replaceAll(" ", "").split("(")[0]
+            }`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="info_link"
+          >
             <button className="info_btn">카카오지도로 확인하기</button>
-          </Link>
+          </a>
           <a href="/" target="_blank" className="info_reserve">
             예매하러 가기
           </a>
