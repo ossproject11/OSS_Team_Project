@@ -8,12 +8,17 @@ const PORT = 8080;
 const models = require("./models/index");
 const cookieParser = require("cookie-parser");
 const path = require("path");
+const cors = require("cors");
+
 require("dotenv").config();
 
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+//cors
+app.use(cors());
+
 
 models.sequelize
   .sync()
@@ -29,13 +34,6 @@ global.appRoot = path.resolve(__dirname);
 // view engine setup
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "./views"));
-
-//cors
-const cors = require("cors");
-
-router.use(
-    cors()
-);
 
 
 app.set("trust proxy", 1);

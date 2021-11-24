@@ -47,22 +47,44 @@ class DataUserManager {
         console.log(`새 유저 생성 성공 : ${result.id}`);
         return true;
       })
-      .catch((err) => {
-        console.log(`유저 생성 실패: ${err}`);
-        return false;
-      });
-    return true;
-  }
-
-
-  static async checkDuplicate(user_id) {
-    const userInfo = await this.findUserInDB(user_id);
-    if (userInfo !== null && userInfo !== false) {
-      console.log(`userId is already exists! ${userInfo}`);
-      return false;
     }
-    return true;
-  }
+    static async modifyUser(user_id, user_pwd, user_name, user_prefer) {
+        //const userInfo = await this.findUserInDB(user_id);
+        //console.log(`userInfo: ${JSON.stringify(userInfo)}`);
+        //if (userInfo !== null) {
+        //    console.log(`userId is already existed! ${userInfo.id}`);
+        //    return false;
+        //}
+
+        let query = {
+            password: encrypt.encrypt(user_pwd), 
+            name: user_name, 
+            prefer: user_prefer, 
+        }
+        models.users
+            .update(query,{
+                where: {
+                  id: user_id,
+                },
+              })
+            .then((result) => {
+                console.log(`회원정보 수정 성공`);
+                return true;
+            })
+            .catch((err) => {
+                console.log(`회원정보 수정 실패: ${err}`);
+                return false;
+            });
+        return true;
+    }
+    static async checkDuplicate(user_id) {
+        const userInfo = await this.findUserInDB(user_id);
+        if (userInfo !== null && userInfo !== false) {
+            console.log(`userId is already exists! ${userInfo.USER_ID}`);
+            return false;
+        }
+        return true;
+    }
 
   static async login(user_id, user_pwd) {
     const userInfo = await this.findUserInDB(user_id);
