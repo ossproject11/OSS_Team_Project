@@ -46,7 +46,7 @@ router.post("/detail", async (req, res) => {
     return res.json({ 
         code: 200, 
         message: "Successfully got performance detail.",
-        performInfo: result,
+        info: result,
     });
 });
 module.exports = router;
