@@ -24,7 +24,7 @@
 - 각 공연별로 댓글 등 사용자가 직접 후기 작성 기능
 
 
-
+![image](https://user-images.githubusercontent.com/22022390/143443098-d8dcb28a-539d-459a-8746-9cdcc3d5c799.png)
 
 
 
