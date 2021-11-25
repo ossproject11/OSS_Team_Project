@@ -29,5 +29,11 @@ module.exports = function (sequelize, DataTypes) {
     },
   );
 
+  users.associate = function (models) {
+    users.hasMany(models.comment, {
+      foreignKey: "creator_id",
+      sourceKey: "id",
+    });
+  };
   return users;
 };
