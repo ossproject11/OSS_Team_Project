@@ -1,3 +1,18 @@
 .container {
   padding: 0 30px;
+
+  .btn_container {
+    margin-top: 100px;
+    display: flex;
+    justify-content: flex-end;
+    .btn {
+      border: 0;
+      cursor: pointer;
+      background-color: transparent;
+      &.selected {
+        color: rgb(7, 102, 7);
+        font-weight: bold;
+      }
+    }
+  }
 }
