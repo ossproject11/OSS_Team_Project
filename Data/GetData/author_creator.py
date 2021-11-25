@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 # 극작가 목록 api 추출
-anc_list = requests.get("http://www.kopis.or.kr/openApi/restful/prfper?service=3dbea193a9e0445a9c80d813e9233d93&stdate=20210101&eddate=20211231&cpage=1&rows=7019".encode('utf-8'))
+anc_list = requests.get("http://www.kopis.or.kr/openApi/restful/prfper?service=&stdate=20210101&eddate=20211231&cpage=1&rows=7019".encode('utf-8'))
 anc_soup = BeautifulSoup(anc_list.content, "html.parser")
 anc_id = list(str(anc_soup.select("db > mt20id, prfnm, author, creator")).split("<mt20id>"))
 anc_num = anc_soup.findAll("mt20id")

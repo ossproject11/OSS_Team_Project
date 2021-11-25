@@ -13,7 +13,7 @@ performance_id = prf_soup.find_all("mt20id")
 
 # Open PrfDetail
 for i in range(len(performance_id)):
-    a_list = requests.get("http://www.kopis.or.kr/openApi/restful/pblprfr/" + performance_id[i].text + "?service=9a8ded23eba14870b33c1ff1ad746a83")
+    a_list = requests.get("http://www.kopis.or.kr/openApi/restful/pblprfr/" + performance_id[i].text + "?service=")
     a_soup = BeautifulSoup(a_list.content, "html.parser")
 
     # performance_id[i]                         # 공연 ID
@@ -45,14 +45,14 @@ for i in range(len(performance_id)):
 
 
 # 공연시설상세 api 추출
-'''
-fcl_list = requests.get("http://www.kopis.or.kr/openApi/restful/prfplc?service=3dbea193a9e0445a9c80d813e9233d93&cpage=1&rows=1448".encode('utf-8'))
+
+fcl_list = requests.get("http://www.kopis.or.kr/openApi/restful/prfplc?service=&cpage=1&rows=1448".encode('utf-8'))
 fcl_soup = BeautifulSoup(fcl_list.content, "html.parser")
 facility_id = fcl_soup.find_all("mt10id")
 
 for i in range(len(facility_id)):
     a_list = requests.get("http://www.kopis.or.kr/openApi/restful/prfplc/" + str(
-        facility_id[i].text) + "?service=9a8ded23eba14870b33c1ff1ad746a83")
+        facility_id[i].text) + "?service=")
     a_soup = BeautifulSoup(a_list.content, "html.parser")
 
     a_id = a_soup.find_all("fcltynm")  # 공연 시설명
@@ -69,6 +69,6 @@ for i in range(len(facility_id)):
     sql = "insert into Details values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
     curs.execute(sql, (facility_id[i].text, a_id[0].text, b_id[0].text, c_id[0].text, d_id[0].text, e_id[0].text, f_id[0].text, g_id[0].text, h_id[0].text, i_id[0].text, j_id[0].text))
     conn.commit()
-'''
+
 curs.close()
 conn.commit()
