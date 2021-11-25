@@ -11,7 +11,6 @@ function SignIn({ history }) {
   const is_login = useSelector((state) => state.user.is_login);
 
   if (is_login) {
-    window.alert("올바르지 않은 접근입니다.");
     history.goBack();
   }
   const onSubmit = (e) => {

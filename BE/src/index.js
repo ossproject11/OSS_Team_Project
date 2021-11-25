@@ -19,7 +19,6 @@ app.use(bodyParser.json());
 //cors
 app.use(cors());
 
-
 models.sequelize
   .sync()
   .then(() => {
@@ -34,7 +33,6 @@ global.appRoot = path.resolve(__dirname);
 // view engine setup
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "./views"));
-
 
 app.set("trust proxy", 1);
 app.use(logger("dev"));

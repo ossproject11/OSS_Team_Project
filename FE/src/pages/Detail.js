@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router";
+import list, { actionCreators as listActions } from "../redux/modules/list";
 
 import "../style/Detail.scss";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
 const dummyData = [
   { id: 0, username: "test1234", content: "재미있었어요" },
@@ -25,25 +28,26 @@ const dummyData = [
 
 function Detail(props) {
   const item = props.location.state;
+  const dispatch = useDispatch();
   let [startIdx, setStartIdx] = useState(0);
   let [slidesPerview, setSlidesPerView] = useState(5);
   let [comment, setComment] = useState("");
-  console.log(item);
+  const user = useSelector((state) => state.user);
+  let [commentList, setCommentList] = useState([]);
 
-  const rendering = () => {
-    const commentList = [];
-    for (let i = startIdx; i < startIdx + slidesPerview; i++) {
-      if (i === dummyData.length) break;
-      commentList.push(
-        <li className="comment_item">
-          <span className="comment_username">{dummyData[i].username}</span>
-          <p className="comment_content">{dummyData[i].content}</p>
-        </li>
-      );
-    }
-    if (startIdx === dummyData.length) setStartIdx(0);
-    return commentList;
-  };
+  let [first, setFirst] = useState(0);
+  useEffect(() => {
+    axios
+      .post("http://localhost:8080/api/perform/detail", {
+        perform_id: item.mt20id,
+      })
+      .then((res) => {
+        setCommentList(...commentList, res.data.info.commentInfo);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   const onClick = (e) => {
     if (slidesPerview * 2 < dummyData.length) {
@@ -56,6 +60,22 @@ function Detail(props) {
 
   const onSumbit = (e) => {
     e.preventDefault();
+
+    if (!user.is_login) {
+      window.alert("로그인 후 이용가능합니다.");
+      props.history.replace("/signin");
+    } else {
+      if (comment === "") {
+        window.alert("댓글을 입력해주세요");
+      } else if (comment.trim().length < 5) {
+        window.alert("댓글을 다섯글자 이상 입력해주세요");
+      } else {
+        dispatch(
+          listActions.postComment(item.mt20id, user.user.userId, comment)
+        );
+        props.history.go("/");
+      }
+    }
   };
 
   const onChange = (e) => {
@@ -76,7 +96,11 @@ function Detail(props) {
           <address className="info_address">{item.fcltynm}</address>
           <a
             href={`https://map.kakao.com/link/search/${
-              item.fcltynm.replaceAll(" ", "").split("(")[0]
+              item.fcltynm
+                .replaceAll(" ", "")
+                .replaceAll("[", " ")
+                .replaceAll("]", " ")
+                .split("(")[0]
             }`}
             target="_blank"
             rel="noopener noreferrer"
@@ -106,7 +130,15 @@ function Detail(props) {
           </div>
         </form>
         <ul className="comment_list">
-          {rendering()}
+          {commentList.map((comment) => {
+            return (
+              <li className="comment_item">
+                <span className="comment_username">{comment.creator_name}</span>
+                <p className="comment_content">{comment.comment}</p>
+              </li>
+            );
+          })}
+
           <button className="btn_more" onClick={onClick}>
             댓글 더보기
           </button>

@@ -16,7 +16,6 @@ function SignUp({ history }) {
   const is_login = useSelector((state) => state.user.is_login);
 
   if (is_login) {
-    window.alert("올바르지 않은 접근입니다.");
     history.goBack();
   }
 
@@ -28,8 +27,6 @@ function SignUp({ history }) {
   const checkInputs = () => {
     const userIDValue = userID.trim();
     const userNameValue = userName.trim();
-    const userPasswordValue = userPassword.trim();
-    const userPasswordCheckValue = userPasswordCheck.trim();
 
     if (!isDuplicate) {
       window.alert("아이디 중복 확인을 먼저 해주세요.");
@@ -39,18 +36,18 @@ function SignUp({ history }) {
       window.alert("8자리 이상의 아이디를 입력해주세요.");
     } else if (userNameValue === "") {
       window.alert("이름을 입력해주세요.");
-    } else if (userPasswordValue === "" || userPasswordValue.length < 8) {
+    } else if (userPassword === "" || userPassword.length < 8) {
       window.alert("다른 비밀번호를 입력해주세요.");
-    } else if (userPasswordCheckValue === "") {
+    } else if (userPasswordCheck === "") {
       window.alert("비밀번호 확인을 입력해주세요.");
-    } else if (userPasswordValue !== userPasswordCheckValue) {
+    } else if (userPassword !== userPasswordCheck) {
       window.alert("비밀번호가 일치하지 않습니다.");
     } else {
       dispatch(
         userActions.signup(
           userIDValue,
           userNameValue,
-          userPasswordValue,
+          userPassword,
           preference,
           history
         )
@@ -170,10 +167,14 @@ function SignUp({ history }) {
         <div className="form_control">
           <label className="form_label">관심분야 설정하기</label>
           <select className="form_select">
-            <option value="코미디">코미디</option>
+            <option value="미스테리">미스테리</option>
             <option value="로맨스">로맨스</option>
-            <option value="하이틴">하이틴</option>
-            <option value="공포">공포</option>
+            <option value="드라마">드라마</option>
+            <option value="가족">가족</option>
+            <option value="코미디">코미디</option>
+            <option value="사극">사극</option>
+            <option value="뮤지컬">뮤지컬</option>
+            <option value="감동">감동</option>
           </select>
           <button className="btn add" onClick={onAddPreference}>
             추가

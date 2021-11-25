@@ -8,6 +8,7 @@ const initialState = {
 
 const SET_LIST = "list/SET_LIST";
 const SET_LOADING = "list/LOADING";
+const SET_COMMENT = "list/SET_COMMENT";
 
 const setList = createAction(SET_LIST);
 const setLoading = createAction(SET_LOADING);
@@ -26,6 +27,23 @@ const getList = (payload) => {
   };
 };
 
+const postComment = (perform_id, user_name, comment) => {
+  return function (dispatch, getState) {
+    axios
+      .post("http://localhost:8080/api/comment", {
+        perform_id: perform_id,
+        user_name: user_name,
+        comment: comment,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
 export default createReducer(initialState, {
   [SET_LIST]: (state, action) => {
     state.list = action.payload;
@@ -39,6 +57,7 @@ const actionCreators = {
   setList,
   setLoading,
   getList,
+  postComment,
 };
 
 export { actionCreators };
