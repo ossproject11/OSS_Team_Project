@@ -1,5 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
+import pymysql
+
+# connect OSS - Database
+conn = pymysql.connect(host="", user="", password="", db="", charset="utf8")
+curs = conn.cursor(pymysql.cursors.DictCursor)
 
 # 수상작 목록 api 추출
 win_list = requests.get("http://www.kopis.or.kr/openApi/restful/prfawad?service=&stdate=20210101&eddate=20211231&cpage=1&rows=763".encode('utf-8'))
@@ -13,15 +18,9 @@ winner_list = [[] for i in range(len(win_id))]
 
 # 수상작 목록 이중 list에 공연ID, 공연명, 수상실적 입력
 for i in range(len(win_id)):
-    winner_list[i] = [win_id[i].text, win_nm[i].text, win_awad[i].text]
+    sql = "insert into Award values (%s, %s, %s)"
+    curs.execute(sql, (win_id[i].text, win_nm[i].text, win_awad[i].text))
+    conn.commit()
 
-# 완성된 list 출력
-for i in winner_list:
-    print(i)
-
-'''
-API 리스트 index 별 내용(필드명)
-공연ID(mt20id), 공연명(prfnm), 수상실적(awards)
-수상실적에서 <br> 엔터키 제거
-수상실적이 여러개인 경우 그만큼 <br>생성
-'''
+curs.close()
+conn.commit()
