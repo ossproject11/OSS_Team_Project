@@ -33,7 +33,7 @@ const signin = (id, pwd, history) => {
         dispatch(setLogin({ jwt: res.data.token }));
       })
       .catch((err) => {
-        window.alert(err.response.data.message);
+        console.error(err);
       })
       .then(() => {
         axios

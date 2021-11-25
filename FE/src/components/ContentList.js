@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import "../style/ContentList.scss";
@@ -49,7 +49,7 @@ function ContentList(props) {
       <h2 className="content_header">{props.name} 목록</h2>
       <ul className="content_list">
         {rendering()}
-        <button className="btn_view_more" onClick={onClick}>
+        <button className="btn_view_more">
           <MaterialIcon icon="arrow_forward" size={24}></MaterialIcon>
         </button>
       </ul>
