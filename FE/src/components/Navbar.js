@@ -31,6 +31,9 @@ function Navbar() {
         <div className="inner">
           {isLogin ? (
             <>
+              <Link to="/mypage" className="link item">
+                마이 페이지
+              </Link>
               <Link to="/" className="link item" onClick={onLogout}>
                 로그아웃
               </Link>

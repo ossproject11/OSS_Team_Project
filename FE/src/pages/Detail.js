@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router";
+import list, { actionCreators as listActions } from "../redux/modules/list";
 
 import "../style/Detail.scss";
+import { useDispatch } from "react-redux";
 
 const dummyData = [
   { id: 0, username: "test1234", content: "재미있었어요" },
@@ -23,11 +25,13 @@ const dummyData = [
   },
 ];
 
-function Detail(props) {
+function Detail({ props, history }) {
   const item = props.location.state;
+  const dispatch = useDispatch();
   let [startIdx, setStartIdx] = useState(0);
   let [slidesPerview, setSlidesPerView] = useState(5);
   let [comment, setComment] = useState("");
+  const user = useState((state) => state.user);
   console.log(item);
 
   const rendering = () => {
@@ -56,6 +60,21 @@ function Detail(props) {
 
   const onSumbit = (e) => {
     e.preventDefault();
+
+    if (!user.is_login) {
+      window.alert("로그인 후 이용가능합니다.");
+      history.replace("/signin");
+    } else {
+      if (comment === "") {
+        window.alert("댓글을 입력해주세요");
+      } else if (comment.trim().length < 5) {
+        window.alert("댓글을 다섯글자 이상 입력해주세요");
+      } else {
+        dispatch(
+          listActions.postComment(item.mt20id, user.user.userId, comment)
+        );
+      }
+    }
   };
 
   const onChange = (e) => {
@@ -76,7 +95,11 @@ function Detail(props) {
           <address className="info_address">{item.fcltynm}</address>
           <a
             href={`https://map.kakao.com/link/search/${
-              item.fcltynm.replaceAll(" ", "").split("(")[0]
+              item.fcltynm
+                .replaceAll(" ", "")
+                .replaceAll("[", " ")
+                .replaceAll("]", " ")
+                .split("(")[0]
             }`}
             target="_blank"
             rel="noopener noreferrer"

@@ -9,6 +9,7 @@ import Footer from "../components/Footer";
 
 import "../style/App.scss";
 import Detail from "../pages/Detail";
+import MyPage from "../pages/MyPage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/signup" exact component={SignUp} />
           <Route path="/signin" exact component={SignIn} />
           <Route path="/detail/:id" exact component={Detail} />
+          <Route path="/mypage" exact component={MyPage} />
         </BrowserRouter>
       </div>
       <Footer></Footer>
