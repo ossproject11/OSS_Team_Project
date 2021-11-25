@@ -36,15 +36,13 @@ const signin = (id, pwd, history) => {
         window.alert(err.response.data.message);
       })
       .then(() => {
-        console.log("please before");
         axios
           .post(`http://localhost:8080/api/getuserinfo`, {
             user_id: id,
           })
           .then((res) => {
             if (res.data.code === 200) {
-              console.log(res.data);
-              console.log("please came here");
+              window.alert("로그인 성공");
               dispatch(setUser(res.data.userInfo));
               history.push("/");
             }
@@ -88,11 +86,14 @@ const modifyUser = (id, pwd, name, preferenceList, history) => {
       })
       .then((res) => {
         console.log(pwd);
-        console.log(preferenceList);
+        console.log(res);
         if (res.data.code === 200) {
-          console.log(res);
+          console.log("in");
           window.alert("회원정보 수정 완료");
           history.push("/");
+          dispatch(modify(preferenceList));
+        } else {
+          window.alert("입력하신 비밀번호가 일치하지 않습니다.");
         }
       })
       .catch((error) => {
@@ -110,7 +111,7 @@ export default createReducer(initialState, {
     const userData = action.payload;
     state.user.userId = userData.id;
     state.user.userName = userData.name;
-    state.user.preferenceList = userData.prefer;
+    state.user.userPreferenceList = userData.prefer;
   },
   [MODIFY_USER]: (state, action) => {
     state.user.userPreferenceList = action.payload;

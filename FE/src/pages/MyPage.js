@@ -7,10 +7,9 @@ import "../style/MyPage.scss";
 function MyPage({ history }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  console.log(user);
   const [inputUserPassword, setInputUserPassword] = useState("");
-  const [preference, setPreference] = useState(
-    user.user.preferenceList.split(", ")
-  );
+  const [preference, setPreference] = useState(user.user.userPreferenceList);
 
   if (!user.is_login) {
     window.alert("로그인 후 이용가능합니다.");

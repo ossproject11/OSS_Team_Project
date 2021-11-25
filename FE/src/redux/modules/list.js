@@ -12,7 +12,6 @@ const SET_COMMENT = "list/SET_COMMENT";
 
 const setList = createAction(SET_LIST);
 const setLoading = createAction(SET_LOADING);
-const setComment = createAction(SET_COMMENT);
 
 const getList = (payload) => {
   return function (dispatch, getState) {

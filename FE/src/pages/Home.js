@@ -14,6 +14,7 @@ function Home() {
     listSet.add(item.genrenm);
   });
 
+  console.log(list);
   const theaterList = list.filter((x) => x.genrenm === "연극");
   const classicList = list.filter((x) => x.genrenm === "클래식");
   const traditionalMusicList = list.filter((x) => x.genrenm === "국악");
