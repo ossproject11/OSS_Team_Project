@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 # 축제여부 목록 api 추출
-fes_list = requests.get("http://www.kopis.or.kr/openApi/restful/prffest?service=3dbea193a9e0445a9c80d813e9233d93&stdate=20210101&eddate=20211231&cpage=1&rows=3588".encode('utf-8'))
+fes_list = requests.get("http://www.kopis.or.kr/openApi/restful/prffest?service=&stdate=20210101&eddate=20211231&cpage=1&rows=3588".encode('utf-8'))
 fes_soup = BeautifulSoup(fes_list.content, "html.parser")
 fes_id = fes_soup.find_all("mt20id")            # 공연ID
 fes_nm = fes_soup.find_all("prfnm")             # 공연명

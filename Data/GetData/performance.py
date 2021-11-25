@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 #공연목록 api
-prf_list = requests.get("http://www.kopis.or.kr/openApi/restful/pblprfr?service=3dbea193a9e0445a9c80d813e9233d93&stdate=20210101&eddate=20211231&cpage=1&rows=225".encode('utf-8'))
+prf_list = requests.get("http://www.kopis.or.kr/openApi/restful/pblprfr?service=&stdate=20210101&eddate=20211231&cpage=1&rows=225".encode('utf-8'))
 prf_soup = BeautifulSoup(prf_list.content, "html.parser")
 performance_id = prf_soup.find_all()
 
@@ -19,7 +19,7 @@ for i in range(0, len(prf_code)):
 
 #세부정보 공연목록에 append
 for i in range(len(performance_id)//10):
-    a_list = requests.get("http://www.kopis.or.kr/openApi/restful/pblprfr/"+str(performance_code[i])+"?service=3dbea193a9e0445a9c80d813e9233d93")
+    a_list = requests.get("http://www.kopis.or.kr/openApi/restful/pblprfr/"+str(performance_code[i])+"?service=")
     a_soup = BeautifulSoup(a_list.content, "html.parser")
     a_id = a_soup.find_all("prfcast")           #공연출연진
     b_id = a_soup.find_all("prfcrew")           #공연제작진
