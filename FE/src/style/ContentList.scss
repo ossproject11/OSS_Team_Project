@@ -4,9 +4,12 @@ ul {
   padding: 0;
 }
 
-.theater_container {
-  margin: 100px auto;
-  .theater_header {
+.content_container {
+  margin: 0 auto;
+  &:first-of-type {
+    padding-top: 100px;
+  }
+  .content_header {
     padding: 20px 0;
     border-bottom: 1px solid #cdcdcd;
   }
@@ -17,29 +20,39 @@ ul {
     transition: 0.2s;
     cursor: pointer;
     border-radius: 50%;
+    height: 100%;
+    margin-top: 60px;
     &:hover {
       background-color: #256dd8;
       color: #fff;
     }
   }
 
-  .theater_list {
+  .content_list {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    .theater_item {
+    justify-content: space-around;
+    .content_item {
       width: 150px;
-      height: 150px;
       border-radius: 10px;
-      border: 1px solid #cdcdcd;
       margin-right: 20px;
-      .theater_link {
+      .content_link {
         text-decoration: none;
         display: block;
         width: 100%;
-        height: 100%;
         color: #000;
         border-radius: 10px;
+        text-align: center;
+        .content_poster {
+          width: 100%;
+          height: 150px;
+          border: 1px solid #cdcdcd;
+          border-radius: 10px;
+        }
+
+        .content_name {
+          font-weight: bold;
+          font-size: 14px;
+        }
       }
     }
   }
