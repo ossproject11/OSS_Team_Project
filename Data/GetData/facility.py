@@ -2,13 +2,13 @@ import requests
 from bs4 import BeautifulSoup
 
 # 공연시설상세 api 추출
-fcl_list = requests.get("http://www.kopis.or.kr/openApi/restful/prfplc?service=3dbea193a9e0445a9c80d813e9233d93&cpage=1&rows=1448".encode('utf-8'))
+fcl_list = requests.get("http://www.kopis.or.kr/openApi/restful/prfplc?service=&cpage=1&rows=1448".encode('utf-8'))
 fcl_soup = BeautifulSoup(fcl_list.content, "html.parser")
 facility_id = fcl_soup.find_all("mt10id")
 
 for i in range(len(facility_id)):
     a_list = requests.get("http://www.kopis.or.kr/openApi/restful/prfplc/" + str(
-        facility_id[i].text) + "?service=9a8ded23eba14870b33c1ff1ad746a83")
+        facility_id[i].text) + "?service=")
     a_soup = BeautifulSoup(a_list.content, "html.parser")
 
     a_id = a_soup.find_all("fcltynm")  # 공연 시설명
@@ -40,7 +40,7 @@ for i in range(0, len(fcl_code)):
 
 # 세부정보 시설목록에 append
 for i in range(len(facility_code)):
-    a_list = requests.get("http://www.kopis.or.kr/openApi/restful/prfplc/"+str(facility_code[i])+"?service=3dbea193a9e0445a9c80d813e9233d93")
+    a_list = requests.get("http://www.kopis.or.kr/openApi/restful/prfplc/"+str(facility_code[i])+"?service=")
     a_soup = BeautifulSoup(a_list.content, "html.parser")
     a_id = a_soup.find_all("seatscale")         #객석 수
     b_id = a_soup.find_all("telno")             #전화번호

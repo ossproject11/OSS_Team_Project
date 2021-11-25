@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 # 기획/제작사목록 api 추출
-cpy_list = requests.get("http://www.kopis.or.kr/openApi/restful/mnfct?service=3dbea193a9e0445a9c80d813e9233d93&cpage=1&rows=6186".encode('utf-8'))
+cpy_list = requests.get("http://www.kopis.or.kr/openApi/restful/mnfct?service=&cpage=1&rows=6186".encode('utf-8'))
 cpy_soup = BeautifulSoup(cpy_list.content, "html.parser")
 company_id = cpy_soup.find_all()
 
